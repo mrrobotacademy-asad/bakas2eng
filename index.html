@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Robot Academy for Programming & AI Training</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --success-color: #2ea44f;
+            --danger-color: #f85149;
+            --warning-color: #f0883e;
+            --border-color: #30363d;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin: 10px 0 5px 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s, opacity 0.3s;
+            margin: 5px;
+        }
+
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { background-color: #21262d; color: #8b949e; cursor: not-allowed; }
+        .btn-youtube { background-color: #ff0000; }
+        .btn-whatsapp { background-color: #25d366; }
+        .btn-check { background-color: #8957e5; }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .timer-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--warning-color);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: 'Fira Code', monospace;
+            z-index: 1000;
+        }
+
+        pre, .code-editor {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 6px;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Fira Code', monospace;
+            overflow-x: auto;
+            color: #ff7b72;
+        }
+        
+        .editor-container {
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .editor-header {
+            background-color: #1f242c;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .code-editor {
+            width: 100%;
+            height: 140px;
+            background-color: #0d1117;
+            color: #79c0ff;
+            border: none;
+            resize: vertical;
+            box-sizing: border-box;
+            font-size: 1rem;
+            line-height: 1.5;
+            padding: 15px;
+        }
+        .code-editor:focus {
+            outline: none;
+        }
+        .console-output {
+            background-color: #05070a;
+            border-top: 1px solid var(--border-color);
+            padding: 15px;
+            font-family: 'Fira Code', monospace;
+            direction: ltr;
+            text-align: left;
+            min-height: 50px;
+            color: #58a6ff;
+            white-space: pre-wrap;
+        }
+        .console-title {
+            font-size: 0.8rem;
+            color: #8b949e;
+            margin-bottom: 5px;
+            font-family: 'Cairo', sans-serif;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .badge {
+            background-color: #21262d;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .info-block {
+            margin: 15px 0;
+            padding: 10px 15px;
+            border-left: 4px solid var(--accent-color);
+            background-color: rgba(88, 166, 255, 0.1);
+            border-radius: 0 6px 6px 0;
+        }
+        .info-block.mistake {
+            border-left-color: var(--danger-color);
+            background-color: rgba(248, 81, 73, 0.1);
+        }
+        .info-block.challenge {
+            border-left-color: var(--warning-color);
+            background-color: rgba(240, 136, 62, 0.1);
+        }
+
+        .breakdown-list { padding-left: 20px; margin: 10px 0; }
+        .breakdown-list li { margin-bottom: 5px; }
+
+        .options-list { list-style: none; padding: 0; margin: 20px 0; }
+        .option-item {
+            margin-bottom: 12px;
+            background-color: var(--bg-color);
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .option-item:hover { background-color: #1f242c; }
+        .option-item input { margin-right: 12px; cursor: pointer; }
+        
+        .option-item.correct {
+            background-color: rgba(46, 164, 79, 0.15) !important;
+            border-color: var(--success-color) !important;
+        }
+        .option-item.wrong {
+            background-color: rgba(248, 81, 73, 0.15) !important;
+            border-color: var(--danger-color) !important;
+        }
+
+        .feedback-msg {
+            font-weight: bold;
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .certificate-box {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 8px double var(--accent-color);
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            color: #fff;
+            margin-top: 20px;
+        }
+        .certificate-box h2 { color: #ffd700; font-size: 2.2rem; margin-top: 0; }
+        .certificate-box .student-name { font-size: 2rem; color: var(--accent-color); margin: 20px 0; font-weight: bold; }
+
+        #quiz-container, #result-container { display: none; }
+
+        .interactive-tab {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .interactive-tab-header {
+            background-color: #1f242c;
+            padding: 12px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .interactive-tab-header:hover {
+            background-color: #282e38;
+        }
+        .interactive-tab-content {
+            padding: 15px;
+            background-color: var(--bg-color);
+            display: none;
+            border-top: 1px solid var(--border-color);
+        }
+        .interactive-tab.active .interactive-tab-content {
+            display: block;
+        }
+        .interactive-tab-header::after {
+            content: '📂';
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        .interactive-tab.active .interactive-tab-header::after {
+            content: '📂';
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="timer-box" id="timer-box" style="display: none;">Time Remaining: <span id="timer-display">60:00</span></div>
+
+    <header>
+        <img src="https://i.postimg.cc/H8J4gQj6/image.png" alt="Mr. Robot Academy Logo" class="logo">
+        <h1>Mr. Robot Academy</h1>
+        <p>Eng. / Andrew Magdy</p>
+        <a href="https://youtube.com/@mrrobotacademy?si=OnsqGekQOfPy-_QL" target="_blank" class="btn btn-youtube">Official YouTube Channel</a>
+    </header>
+
+    <div class="container">
+
+        <section class="card" id="lessons-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>📚 Lecture & Interactive Explanation</h2>
+                <span class="badge" id="lesson-progress">Lesson 1 of 40</span>
+            </div>
+            
+            <div id="lesson-content-area"></div>
+
+            <div class="nav-controls">
+                <button class="btn" id="prev-lesson-btn" onclick="navigateLesson(-1)">⬅ Previous Lesson</button>
+                <button class="btn" id="next-lesson-btn" onclick="navigateLesson(1)">Next Lesson ➡</button>
+            </div>
+        </section>
+
+        <section id="quiz-setup" class="card">
+            <h2>📝 Comprehensive Interactive JavaScript Quiz (50 Questions)</h2>
+            <p>Please enter your full name.</p>
+            <div class="input-group">
+                <label for="student-name-input">Student Full Name:</label>
+                <input type="text" id="student-name-input" placeholder="Type your full name here...">
+            </div>
+            <button class="btn" style="width: 100%; margin: 10px 0;" onclick="startQuiz()">Start the Interactive Quiz Now 🚀</button>
+        </section>
+
+        <section id="quiz-container" class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 id="question-title">Current Question:</h2>
+                <span class="badge" id="quiz-progress">Question 1 of 50</span>
+            </div>
+            
+            <div id="dynamic-quiz-area"></div>
+
+            <div id="feedback-area"></div>
+
+            <div class="nav-controls">
+                <button class="btn" id="prev-quiz-btn" onclick="navigateQuiz(-1)">Previous</button>
+                <button class="btn btn-check" id="check-ans-btn" onclick="checkCurrentAnswer()">Check Answer 🔍</button>
+                <button class="btn" id="next-quiz-btn" onclick="navigateQuiz(1)">Next</button>
+            </div>
+
+            <button type="button" class="btn" style="background-color: var(--success-color); width: 100%; margin-top: 25px;" onclick="submitQuiz()">Confirm Ending Entire Quiz & Submit Answers ✔</button>
+        </section>
+
+        <section id="result-container" class="card">
+            <h2>🎉 Final Quiz Result</h2>
+            <p id="score-summary"></p>
+
+            <div class="certificate-box" id="certificate">
+                <h2>Official Academy Report</h2>
+                <p>Comprehensive report certifying that the student:</p>
+                <div class="student-name" id="cert-name">Mr. Robot Academy Student</div>
+                <p>has completed the assignments and quiz for <b>Core JavaScript Principles & Advanced Interactive Debugging</b></p>
+                <p id="cert-score">With a Score of: 100%</p>
+                <div style="margin-top: 30px; font-size: 0.9rem; color: #8892b0;">Certified and performance reviewed programmatically successfully 🤖</div>
+            </div>
+
+            <div style="text-align: center; margin-top: 25px;">
+                <button class="btn btn-whatsapp" onclick="shareToWhatsApp()">Send Report via WhatsApp 📱</button>
+                <button class="btn" style="background-color: #6e7681;" onclick="location.reload()">Restart Quiz & Lessons 🔄</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- First: Full Interactive Explanation Array (40 unique and innovative points) ---
+        const lessonsData = [
+            {
+                title: "1. Concept of Variables 📦",
+                level: "Beginner",
+                code: `let box;\nbox = "Robot";\nconsole.log(box);`,
+                concept: "Variables are containers or boxes that we use to store data and information in memory to refer back to them later.",
+                realWorld: "Like a toy box where you place your things and write a name on it so you can recognize it later.",
+                breakdown: ["The first line reserves a place in memory under the name box.", "The second line stores the text inside the box.", "The third line prints the content of the box."],
+                mental: "A variable acts as an address that makes it easy for us to access hidden information in the computer's RAM.",
+                mistake: "Trying to use a variable before declaring it causes an immediate error.",
+                pro: "Always choose clear variable names that express their content to make your code easier to read.",
+                challenge: "Change the variable name from box to myBag and print it."
+            },
+            {
+                title: "2. Assigning Variables with let 🔑",
+                level: "Beginner",
+                code: `let studentName = "Andrew";\nconsole.log(studentName);`,
+                concept: "We use the reserved keyword let to declare a new variable whose value can be changed at any later time in the program.",
+                realWorld: "Like writing your name on a school notebook when starting a new school year.",
+                breakdown: ["We declared a studentName variable and reserved its string value directly.", "The second line displays the name in the console."],
+                mental: "The word let means 'allow me to create a new variable box'.",
+                mistake: "Repeating let for the same variable twice in the same scope causes a SyntaxError.",
+                pro: "let is considered the standard and safest way to define updatable variables.",
+                challenge: "Change the text name to your full name and run the code instantly."
+            },
+            {
+                title: "3. Variable Reassignment 🔄",
+                level: "Beginner",
+                code: `let score = 50;\nscore = 90;\nconsole.log(score);`,
+                concept: "We can change the value stored inside a let variable simply by writing its name again followed by the = sign without repeating the word let.",
+                realWorld: "Like changing your score in a game when earning extra points in the second level.",
+                breakdown: ["The first line starts the score at 50.", "The second line completely replaces 50 with 90.", "The third line prints the last value only, which is 90."],
+                mental: "Memory clears the old value of the variable and automatically places the new value in its stead.",
+                mistake: "Rewriting the word let when you only want to update the value.",
+                pro: "Reassignment gives programs dynamism and makes code highly flexible.",
+                challenge: "Modify the update code to be score = 100 and watch the beautiful output."
+            },
+            {
+                title: "4. Tracking Variable Value Changes 🎭",
+                level: "Beginner",
+                code: `let weapon = "Sword";\nweapon = "Laser";\nconsole.log(weapon);`,
+                concept: "Confirming that the code reads from top to bottom and takes the last value assigned to the stored box.",
+                realWorld: "Changing the hero's current weapon inside action games when picking up an upgraded weapon.",
+                breakdown: ["We started with the Sword weapon.", "It was immediately replaced by the lethal Laser weapon.", "The printing ended with Laser."],
+                mental: "A variable always holds one single live state, which is the chronologically newest state in the lines.",
+                mistake: "Expecting both weapons to be printed together; a variable retains only one value.",
+                pro: "Continuous updating of states is the foundation of interactive game programming.",
+                challenge: "Add a third assignment line and make the final weapon 'Rocket'."
+            },
+            {
+                title: "5. Simple if else Condition 🚦",
+                level: "Beginner",
+                code: `let age = 20;\nif (age >= 18) {\n  console.log("Allowed");\n} else {\n  console.log("Denied");\n}`,
+                concept: "Conditional statements allow the program to make decisions; executing specific code if the condition is met, or an alternative code if it is not met.",
+                realWorld: "Traffic light: If it's green move, otherwise stop immediately.",
+                breakdown: ["We checked if age is greater than or equal to 18.", "Since 20 satisfies the condition, Allowed is logged and the else code is completely ignored."],
+                mental: "Programming is not a straight line; conditions create branches and smart paths for the code.",
+                mistake: "Forgetting the parentheses around the condition to be checked () or curly braces for commands {}.",
+                pro: "else is the alternative line of defense that ensures the program works when the primary condition fails.",
+                challenge: "Change the age value to 15 to watch the Denied message output in the console."
+            },
+            {
+                title: "6. Controlling Grades Via if else 🎓",
+                level: "Beginner",
+                code: `let grade = 75;\nif (grade >= 50) {\n  console.log("Pass");\n} else {\n  console.log("Fail");\n}`,
+                concept: "Applying the binary path (if / else) to classify students' success or failure based on variable values.",
+                realWorld: "The result display system on the Ministry of Education website for students.",
+                breakdown: ["The condition checks whether 75 is greater than or equal to 50? Yes, correct.", "The word Pass prints successfully."],
+                mental: "If the condition result is true, we enter the first box; if it is false, we automatically go to else.",
+                mistake: "Placing a semicolon directly after the if parentheses, which breaks the checking logic.",
+                pro: "Conditions make your programs look smart and think exactly like humans.",
+                challenge: "Make the student grade 40 and ensure the word Fail appears in the interactive editor."
+            },
+            {
+                title: "7. Extended Condition else if 🗺️",
+                level: "Beginner",
+                code: `let speed = 100;\nif (speed > 120) {\n  console.log("Dangerous");\n} else if (speed > 80) {\n  console.log("Normal");\n} else {\n  console.log("Slow");\n}`,
+                concept: "When we have more than two options, we use else if to request checking another new condition if the first condition fails directly.",
+                realWorld: "Adjusting car speed assessment by highway radars and determining violations.",
+                breakdown: ["The speed 100 is not greater than 120 (the first condition failed).", "It moved to else if and found that 100 is greater than 80 (the second is met), so it printed Normal."],
+                mental: "The program goes through conditions in order, and as soon as it finds a true condition, it executes it and exits the structure completely.",
+                mistake: "Writing elseif as a single attached word; the correct way is always to leave a space between the two words.",
+                pro: "You can repeat else if lines as many times as you want to cover all possible probabilities.",
+                challenge: "Change the speed to 140 to see the traffic violation warning Dangerous."
+            },
+            {
+                title: "8. Advanced Accounts Classification with else if 💎",
+                level: "Beginner",
+                code: `let points = 15;\nif (points >= 20) {\n  console.log("Gold");\n} else if (points >= 10) {\n  console.log("Silver");\n} else {\n  console.log("Bronze");\n}`,
+                concept: "Distributing users' levels and rewards with programming precision by testing multiple numerical ranges.",
+                realWorld: "Dividing medals and trophies in international programming competitions and electronic games.",
+                breakdown: ["15 does not satisfy the gold condition.", "But it satisfies the silver condition (greater than 10), so the user is awarded the Silver badge."],
+                mental: "The hierarchical organization of conditions prevents overlapping and ensures each user gets their exact rating.",
+                mistake: "Arranging ranges randomly, such as placing the smallest number first, which ruins the arithmetic checking logic.",
+                pro: "Always start with the most specific conditions and largest numbers when checking in descending order.",
+                challenge: "Make the points 5 to watch how the user gets the Bronze badge."
+            },
+            {
+                title: "9. Multiple Separated Conditions via if Only 🧱",
+                level: "Beginner",
+                code: `let num = 10;\nif (num > 5) { console.log("A"); }\nif (num > 2) { console.log("B"); }`,
+                concept: "When writing independent if statements below each other without else, the computer will check them all and execute each one whose condition is met completely separately.",
+                realWorld: "Like reviewing a shopping list: Did you buy bread? Yes. Did you buy milk? Yes. Each check is independent of the other.",
+                breakdown: ["The first condition is true (10 > 5) so it prints A.", "The second condition is also true (10 > 2) so it prints B.", "The result is printing both letters together."],
+                mental: "In independent ifs, each condition is considered a separate programming battle unrelated to what is above or below it.",
+                mistake: "Confusing independent statements with linked else if statements that settle for a single true path.",
+                pro: "Use independent conditions if you want to accumulate features or check non-conflicting criteria together.",
+                challenge: "Change the number to 3 to watch only the letter B printed in the editor."
+            },
+            {
+                title: "10. Accumulating Achievements with Independent ifs 🏅",
+                level: "Beginner",
+                code: `let levelsSolved = 3;\nif (levelsSolved >= 1) { console.log("Badge 1"); }\nif (levelsSolved >= 3) { console.log("Badge 2"); }`,
+                concept: "Using independent conditions to grant users multiple badges based on their cumulative total points in the program.",
+                realWorld: "Rewarding developers in freelance platforms upon completing the first task then the third task.",
+                breakdown: ["The user solved 3 levels.", "The first condition is met, so they take the first badge.", "The second condition is also met, so they take the second badge too."],
+                mental: "If the condition result is true, we enter the box; if it is false, we automatically proceed forward.",
+                mistake: "Using else if here would have deprived the user of the second badge because the first condition would be satisfied with an exclusive exit.",
+                pro: "Understanding the core difference between connected and independent conditions is the pinnacle of programming professionalism.",
+                challenge: "Make the solved levels 1 only and watch the automatic disappearance of the second badge."
+            },
+            {
+                title: "11. Logical AND Linker (&&) 🤝",
+                level: "Beginner",
+                code: `let hasTicket = true;\nlet isClean = true;\nif (hasTicket && isClean) {\n  console.log("Enter");\n}`,
+                concept: "The logical AND linker is represented in JavaScript by the symbol &&, and it requires all conditions to succeed and be met together to give an overall true result.",
+                realWorld: "To board a plane: you must own the ticket (AND) your passport must be valid; the absence of either completely prevents you.",
+                breakdown: ["The first condition is true and the second condition is true.", "Since both sides are correct, entry was allowed and Enter was printed."],
+                mental: "The && symbol hates false; if there is a single wrong side, the overall result collapses immediately.",
+                mistake: "Writing the word 'and' as text characters instead of the standard approved programming symbol &&.",
+                pro: "Use && to protect critical operations that require multiple complete security conditions to combine.",
+                challenge: "Change the value of isClean to false and watch the console refrain from printing."
+            },
+            {
+                title: "12. Checking Identity and Age via && 🛡️",
+                level: "Beginner",
+                code: `let isRegistered = true;\nlet userAge = 20;\nif (isRegistered && userAge >= 18) {\n  console.log("Welcome Robot");\n}`,
+                concept: "Merging logical boolean conditions with comparative numerical relationships in a single compact line via &&.",
+                realWorld: "Registering for advanced courses at the academy that require an activated account and the appropriate age.",
+                breakdown: ["The account is registered (true) and the age is greater than 18 (true).", "Both sides are solid and correct; the welcome message outputs successfully."],
+                mental: "Different types of data can be merged inside && conditions as long as they evaluate to true or false.",
+                mistake: "Forgetting to write the full variable name on the second side and writing the comparison bare without a target.",
+                pro: "The && linker shortens writing complex nested conditions (Nested if) and saves visual code lines.",
+                challenge: "Make the age 16 and run the editor to see how the code refuses to pass the statement."
+            },
+            {
+                title: "13. Logical OR Linker (||) 🧭",
+                level: "Beginner",
+                code: `let hasCash = false;\nlet hasCard = true;\nif (hasCash || hasCard) {\n  console.log("Buy");\n} else {\n  console.log("Stop");\n}`,
+                concept: "The logical OR linker is represented by the symbol ||, and it settles for only one true condition among the available options to give a total true.",
+                realWorld: "When paying at a supermarket: you can pay cash (OR) by visa card; the presence of one method is enough to purchase.",
+                breakdown: ["Cash is not available (false) but the card is available (true).", "Since one method succeeded, the code approved and printed the purchase statement Buy."],
+                mental: "The || symbol is very kind and loves true; a single correct flash is enough for the code to pass safely through the branch.",
+                mistake: "Using uppercase letters for the linker or incorrect language layouts for parallel Pipes lines ||.",
+                pro: "The || symbol is typed by pressing Shift + \\ on most standard developers' keyboards.",
+                challenge: "Make both choices false and watch how the program fails to complete the purchase process."
+            },
+            {
+                title: "14. Login Flexibility via || 🚪",
+                level: "Beginner",
+                code: `let loginWithGoogle = true;\nlet loginWithEmail = false;\nif (loginWithGoogle || loginWithEmail) {\n  console.log("Logged In");\n}`,
+                concept: "Applying programming choice to help users log into the site using more than one available and easy method.",
+                realWorld: "The login screen on the academy platform or modern mobile apps.",
+                breakdown: ["Logged in via Google successfully (true), and ignored standard email (false).", "Entry to the platform was allowed and the notification appeared."],
+                mental: "Multiple options raise the quality of programs and make the end-user's life noticeably easier.",
+                mistake: "Expecting both options to be true; the condition settles for one as a minimum.",
+                pro: "Always make your app interfaces flexible and support alternative options for registrants and members.",
+                challenge: "Change Google state to false, make email true, and ensure the code continues to work successfully."
+            },
+            {
+                title: "15. Priority of Logical Linkers and Confirmation 🚀",
+                level: "Beginner",
+                code: `let score1 = 90;\nlet score2 = 40;\nif (score1 >= 80 || score2 >= 80) {\n  console.log("Passed Quiz");\n}`,
+                concept: "Using alternative linkers to verify that the student passed at least one of the qualifying exams for the certified certificate.",
+                realWorld: "Entering the next stage of competitions upon succeeding in either the first round or the alternative second round.",
+                breakdown: ["The first exam is excellent 90 (true). The second exam is weak 40 (false).", "The alternative linker || passes the result and celebrates the distinguished student in the console."],
+                mental: "Programming looks at the final results of each side before merging major conditional paths.",
+                mistake: "Continuous confusion between using && and using || in sensitive educational systems.",
+                pro: "Determining the correct linker saves the code from logical bugs and confusing random results.",
+                challenge: "Make both scores below 50 and observe the behavior of the academy's smart browser."
+            },
+            {
+                title: "16. Empty Text Variables (Strings) 📄",
+                level: "Beginner",
+                code: `let message = "";\nmessage = "Hello Robot";\nconsole.log(message);`,
+                concept: "A variable can be started with a completely empty string to prepare space, then filled with text data later according to user interaction.",
+                realWorld: "A new post writing box; it remains empty until the user begins writing letters.",
+                breakdown: ["We reserved an empty string in the first line.", "We filled it with the welcome phrase in the second line and printed it successfully."],
+                mental: "Empty strings are valid values and are heavily used as initial states in programming languages.",
+                mistake: "Forgetting quotation marks, which establishes a syntax error and stops the JavaScript file.",
+                pro: "Always start string variables with empty values to avoid the appearance of the annoying undefined word to users.",
+                challenge: "Write a custom text message of your own design inside the variable and print it instantly."
+            },
+            {
+                title: "17. Initial Numerical Variables 🔢",
+                level: "Beginner",
+                code: `let counter = 0;\ncounter = counter + 1;\nconsole.log(counter);`,
+                concept: "Starting counters from absolute zero, then increasing the variable relying on its previous value stored in RAM.",
+                realWorld: "A healing potion counter in games or website visitors counter by seconds.",
+                breakdown: ["We started the counter from absolute zero.", "We took zero, added 1 to it, and stored it again in the same counter box.", "The result is 1."],
+                mental: "A variable can exist on both sides of the equation, where the right side is calculated first, then stored in the left.",
+                mistake: "Forgetting to start with the value zero and trying to increment an empty variable causes the strange NaN value to output.",
+                pro: "The second line can be shortened programmatically by writing counter++ as a smart and professional way.",
+                challenge: "Repeat the increment line a second time to see the counter jump to number 2 in live outputs."
+            },
+            {
+                title: "18. Deep Nested Conditions (Nested if) 🕸️",
+                level: "Beginner",
+                code: `let isOnline = true;\nlet hasMic = true;\nif (isOnline) {\n  if (hasMic) { console.log("Can Speak"); }\n}`,
+                concept: "Placing an entire conditional statement inside the block of another conditional statement; the inner one cannot be reached unless the outer one succeeds first.",
+                realWorld: "Entering a voice chat room: you must be connected first (if) then own a regularly working microphone.",
+                breakdown: ["We entered through the first gate because the developer is online.", "We found the mic check and it succeeded too, so we printed the ability to talk Can Speak."],
+                mental: "Nested conditions create sequential and very precise paths for verification and interactive programming auditing.",
+                mistake: "Too many nested conditions in an exaggerated manner makes the code complicated, hard to maintain, and is called 'Pyramid of Doom'.",
+                pro: "Developers often prefer replacing nested conditions with a single && linker to simplify appearance and code readability.",
+                challenge: "Make the first variable false and ensure that the computer did not look at the second condition at all."
+            },
+            {
+                title: "19. Checking Boolean Values (Boolean) 🎯",
+                level: "Beginner",
+                code: `let isPremium = true;\nif (isPremium) {\n  console.log("VIP Content");\n} else {\n  console.log("Free Content");\n}`,
+                concept: "Boolean variables (true/false) do not need writing comparison signs like == true; placing the variable name directly in the condition is enough.",
+                realWorld: "Checking a gold user's subscription in live stream channels to watch exclusive matches.",
+                breakdown: ["We placed the variable directly inside the if parentheses.", "Since it is true, we entered the premium VIP path and printed the message."],
+                mental: "The if always searches for a final boolean value, and as long as the variable is ready, there is no need for repetition and extra comparison.",
+                mistake: "Placing the value true inside quotation marks \"true\", which turns it into dead text and ruins boolean conditional logic.",
+                pro: "Writing the condition as if (isPremium) reflects clean code and professionalism of the developer.",
+                challenge: "Change subscription to false and watch the immediate transition to alternative free content services."
+            },
+            {
+                title: "20. Smart Logical Inversion (NOT) 🛑",
+                level: "Beginner",
+                code: `let isLocked = false;\nif (!isLocked) {\n  console.log("Open Area");\n}`,
+                concept: "The exclamation mark (!) is called the negation operator (NOT), and it completely reverses the boolean value; it turns false to true and vice versa.",
+                realWorld: "Automatic door unlocking: if the door is (NOT locked) allow visitors to pass and enter freely.",
+                breakdown: ["The variable value is false.", "The exclamation mark before the name reversed the value to become an overall true, so the condition was entered and Open Area printed."],
+                mental: "The negation operator is a magical tool to check the absence of features or opposite states in programming codes.",
+                mistake: "Placing the exclamation mark after the variable and not before it, which causes the code to break immediately with a dangerous Error.",
+                pro: "Use negation carefully to make conditional statements read like regular English with complete clarity.",
+                challenge: "Change the variable to be true and watch how the open area is completely closed in the browser."
+            },
+            {
+                title: "21. Shared Variables & Mathematical Operations ➕",
+                level: "Beginner",
+                code: `let price = 100;\nlet tax = 14;\nlet total = price + tax;\nconsole.log(total);`,
+                concept: "We can merge the values of different variables together to create a third variable that holds the result of the shared mathematical processing between them.",
+                realWorld: "Calculating the total price of a purchase invoice with value-added tax (VAT) added in retail stores.",
+                breakdown: ["We reserved base price and tax in separate boxes.", "We added the content of the two boxes in the third and printed the final value 114 in the blink of an eye."],
+                mental: "Variables are flexible and cooperate mathematically to create financial and statistical programs of extreme precision and engineering power.",
+                mistake: "Trying to add a numerical variable to a string variable by mistake, which causes concatenation instead of clean mathematical calculation.",
+                pro: "Always verify the data type before performing sensitive arithmetic operations to ensure numbers' safety.",
+                challenge: "Change the tax value to become 20 and calculate the new total price in the live editor."
+            },
+            {
+                title: "22. Sequential & Varied else if Condition 📊",
+                level: "Beginner",
+                code: `let light = "Yellow";\nif (light === "Red") {\n  console.log("Stop");\n} else if (light === "Yellow") {\n  console.log("Ready");\n} else {\n  console.log("Go");\n}`,
+                concept: "Using strict text comparison (===) inside sequential condition chains to direct automated and mechanical smart systems.",
+                realWorld: "Automated control systems for traffic signals, trains, and subways in the capital.",
+                breakdown: ["The light is not red.", "It shifted to the second check and found it completely yellow, so it printed the interactive preparation command Ready and stopped checking the rest."],
+                mental: "The triple equal sign (===) means matching exactly in value and type without the slightest programming leniency.",
+                mistake: "Using a single equal sign (=) in the condition, which is a grave mistake because it performs assignment and filling, not checking and comparison.",
+                pro: "A professional developer always uses === to prevent hidden and puzzling errors while reviewing large codes.",
+                challenge: "Change the variable to Green and watch the automatic transition to the move and launch command."
+            },
+            {
+                title: "23. Independent Conditions to Check Single Variables 🎯",
+                level: "Beginner",
+                code: `let x = 15;\nif (x % 5 === 0) { console.log("DivBy5"); }\nif (x % 3 === 0) { console.log("DivBy3"); }`,
+                concept: "Using successive individual check statements to verify multiple different properties of a single number in the same live execution cycle.",
+                realWorld: "Mathematical data analysis systems and algorithms to detect prime numbers and common multiples smartly.",
+                breakdown: ["The number 15 is divisible by 5 with no remainder, so it prints the first statement.", "And it is divisible by 3 too, so it prints the second with excellent interactive succession."],
+                mental: "The percentage sign (%) means the remainder of division, and when it equals zero, this proves the number's total acceptability for division without fractions.",
+                mistake: "Assuming that satisfying the first condition will cancel the second; this happens only in else if structure, not with simple independent ifs.",
+                pro: "Independent conditions give developers a supreme capability to review and check data files in a detailed and precise manner.",
+                challenge: "Change the value of number x to be 10 and observe printing which of the two statements will disappear immediately from the console."
+            },
+            {
+                title: "24. AND Linker to Assess Upgraded Security Levels 🔐",
+                level: "Beginner",
+                code: `let hasPassword = true;\nlet hasFingerprint = true;\nif (hasPassword && hasFingerprint) {\n  console.log("Phone Unlocked");\n}`,
+                concept: "Applying two-factor security standards and mandatory verification of the presence of all authorization elements to open accounts or live smartphones.",
+                realWorld: "Unlocking modern smartphones through password and fingerprint together to protect absolute privacy.",
+                breakdown: ["The password is correct and the fingerprint is available and fully confirmed.", "The final result is true and the phone was successfully unlocked with a welcoming success."],
+                mental: "The absence of any security standard closes the gate completely, preventing hacking vulnerabilities and preserving data with high efficiency.",
+                mistake: "Expecting the code to pass when the fingerprint fails; the && operator is extremely strict and does not accept negotiation or compromise in the condition.",
+                pro: "Always design your sensitive apps relying on logical AND links to provide maximum and reliable protection for subscribers.",
+                challenge: "Make one of the two variables false and ensure that the security system holds and the phone completely locks."
+            },
+            {
+                title: "25. Programming Choice Flexibility with OR Linker in Games 🎮",
+                level: "Beginner",
+                code: `let hasElixir = true;\nlet hasDiamond = false;\nif (hasElixir || hasDiamond) {\n  console.log("Revive Hero");\n}`,
+                concept: "Using the || operator to allow players to continue playing and restore the hero's energy with more than one alternative rescue method available in the bag.",
+                realWorld: "Major strategic game systems that support continuing play relying on gems or healing magic potions.",
+                breakdown: ["The magic potion is available in the box (true) and gems ran out completely (false).", "Since one rescue method is live, the hero was revived immediately Revive Hero."],
+                mental: "The OR linker gives games ease and flexibility that prevents players' frustration and increases the enjoyment of luxury interactive gameplay.",
+                mistake: "Believing that || stops the code at the first false value; it continues searching until it finds a single true that smartly saves the situation.",
+                pro: "Use || in all free choice screens to give your clients and users freedom of movement and suitable alternatives.",
+                challenge: "Make the magic potion false too and watch the hero's fall and game over by printing completely abstaining."
+            },
+            {
+                title: "26. Assigning & Modifying Accounts with let 💰",
+                level: "Beginner",
+                code: `let wallet = 200;\nwallet = wallet - 50;\nconsole.log(wallet);`,
+                concept: "Confirming let's efficacy in managing and updating financial accounts continuously via direct debit operations and rapid reassignment.",
+                realWorld: "Simulating real purchase operations and deducting products' price from clients' electronic wallets in the store.",
+                breakdown: ["The wallet started with 200 pounds.", "50 pounds were deducted and the box updated with the remaining value immediately.", "The final result is 150 in the console."],
+                mental: "The new value erases and cancels the existence of the old value from RAM to establish the current financial position accurately and decisively.",
+                mistake: "Using the word let again in the second line, which causes the code to freeze and a syntax error to appear in the browser.",
+                pro: "The deduction line can be written in a brief and professional manner as follows: wallet -= 50 to save visual typing spaces.",
+                challenge: "Add an extra deduction line with a value of 100 pounds and watch the balance decline to number 50 instantly."
+            },
+            {
+                title: "27. Binary Condition to Monitor Legal Driving Age 🚗",
+                level: "Beginner",
+                code: `let age = 16;\nif (age >= 18) {\n  console.log("Drive Allowed");\n} else {\n  console.log("Drive Prohibited");\n}`,
+                concept: "Applying the binary path (if / else) to enforce strict rules and regulations based on precise checking of real age variables.",
+                realWorld: "Electronic driving license issuance systems for citizens.",
+                breakdown: ["The citizen's current age is 16 which is not greater than or equal to 18 (the condition is completely false).", "An immediate transition to else occurs and driving is prohibited successfully Drive Prohibited."],
+                mental: "else is the inevitable safety net that prevents the passage of any transactions not fulfilling standard criteria specified in code.",
+                mistake: "Forgetting parentheses around the condition to be checked () or using the comparison sign inversely ruins logic completely.",
+                pro: "Always make your programs firm and compliant with laws to ensure safety and security of users in real daily life.",
+                challenge: "Raise the citizen's age to 25 years and ensure the system jumps automatically to grant them full legal driving authority."
+            },
+            {
+                title: "28. Advanced Discounts Checking via Hierarchical else if 💸",
+                level: "Beginner",
+                code: `let cartTotal = 300;\nif (cartTotal >= 500) {\n  console.log("20% Discount");\n} else if (cartTotal >= 200) {\n  console.log("10% Discount");\n} else {\n  console.log("No Discount");\n}`,
+                concept: "Building flexible and advanced interactive pricing systems that grant ascending and encouraging discounts to clients based on total purchase size and value.",
+                realWorld: "Programming smart shopping carts in major international stores to continuously attract and motivate shoppers.",
+                breakdown: ["The cart value 300 is not greater than 500.", "But it is greater than 200 (the second check is met), so the client was granted a 10% discount immediately and notification displayed."],
+                mental: "Descending order of conditions protects financial logic; if we placed 200 first, the lower discount would be applied to large invoice owners.",
+                mistake: "Neglecting to write the final else block, leaving small invoices hanging without clear explanatory messages on the personal interface.",
+                pro: "Always design your financial paths with a precise engineering order that preserves company funds and motivates buyers efficiently.",
+                challenge: "Raise the cart value to 600 pounds and ensure the system jumps automatically to grant the client the largest discount of 20%."
+            },
+            {
+                title: "29. Separated Verification of Player's Features and Authorities 🛡️",
+                level: "Beginner",
+                code: `let playerLevel = 12;\nif (playerLevel > 10) { console.log("Unlock Desert"); }\nif (playerLevel > 5) { console.log("Unlock Forest"); }`,
+                concept: "Using independent checks via successive ifs to open multiple areas and features for the excelling player without programmatically canceling any of them.",
+                realWorld: "Open maps and stages in strategy games that open their levels gradually and cumulatively for the hero and user.",
+                breakdown: ["The player's current level is 12.", "The first condition is correct so it unlocks the Desert area.", "The second condition is also correct so it unlocks the Forest area together in the same live cycle."],
+                mental: "Independent ifs grant cumulative flexibility; the client gets all rights and features matching their current level in parallel.",
+                mistake: "Converting these checks to else if by mistake, depriving the player of the Forest because code settles for unlocking the Desert and exits.",
+                pro: "Study game nature well; cumulative features always require completely independent and separated conditions to ensure fun user experience.",
+                challenge: "Make the player level 7 only and watch their authorities recede and be restricted to unlocking Forest while banning Desert completely."
+            },
+            {
+                title: "30. Logical AND Linker to Check Graduation and Certificate Conditions 🎓",
+                level: "Beginner",
+                code: `let attendance = 90;\nlet examScore = 85;\nif (attendance >= 85 && examScore >= 50) {\n  console.log("Get Certificate");\n}`,
+                concept: "Applying mandatory checking with the && operator to ensure student's eligibility for graduation certificate based on attendance and success criteria together.",
+                realWorld: "Evaluation and automatic programmatic accreditation systems in smart classrooms and academies to ensure quality of graduates.",
+                breakdown: ["The student's attendance rate is distinguished 90 (true) and their exam score is strong 85 (true).", "Both sides are integrated and meet conditions; the certificate is granted immediately Get Certificate."],
+                mental: "A real developer puts strict rules for evaluation codes; excellence requires commitment to attendance and actual success together on the platform.",
+                mistake: "Changing the linker to || by mistake, allowing an absent student all year to get the certificate just by taking the exam by chance.",
+                pro: "Protect the credibility of your reports and educational systems using strict and reliable AND links in filtering vital results.",
+                challenge: "Make attendance rate shrink to 60 and watch freezing certificate issuance and hiding it completely despite excelling in the final exam."
+            },
+            {
+                title: "31. Logical OR Linker to Secure Network Connection Alternatives 🌐",
+                level: "Beginner",
+                code: `let wifiConnected = false;\nlet mobileData = true;\nif (wifiConnected || mobileData) {\n  console.log("Internet Active");\n}`,
+                concept: "Using the || operator to ensure continuous operation of applications and live services via providing flexible alternative connection paths for the user.",
+                realWorld: "Navigation systems and smart chat apps that maintain your connection to the map whether you are on Wi-Fi or mobile data bundle.",
+                breakdown: ["Wi-Fi network is disconnected (false) but the mobile bundle is active and working (true).", "The OR linker passes connection successfully and prints immediate safety Internet Active."],
+                mental: "Flexibility prevents applications' collapse; providing an alternative path ensures user remains inside the service without page interruption.",
+                mistake: "Using wrong symbols for the linker or assuming both networks must work together; || settles for one live confirmed connection window.",
+                pro: "Always design your programs' infrastructure relying on emergency alternative options to raise system efficiency and reliability for clients.",
+                challenge: "Disable mobile data bundle too and make it false to watch how connection cuts completely and services stop in the console."
+            },
+            {
+                title: "32. Updating Attempts Counter & Reassignment with let 🎯",
+                level: "Beginner",
+                code: `let attemptsLeft = 3;\nattemptsLeft = attemptsLeft - 1;\nconsole.log(attemptsLeft);`,
+                concept: "Using update powers of let variables to manage and track the number of remaining attempts for users inside sensitive systems and games.",
+                realWorld: "Reducing number of wrong password entry attempts in Automated Teller Machines (ATM) to protect accounts.",
+                breakdown: ["The user started with 3 full attempts.", "Upon committing an error, an attempt was decremented and the box updated with the rest immediately.", "The final result is two attempts."],
+                mental: "Memory deletes the original value and establishes the current situation to ensure accurate security tracking throughout live operation.",
+                mistake: "Rewriting the word let in the second line, which is a famous programming error that disables updating the page completely.",
+                pro: "The decrement line can be written in a brief and direct manner as follows: attemptsLeft-- to save distinguished programming writing spaces.",
+                challenge: "Repeat the decrement line twice consecutively and watch the user's attempts reach absolute zero in the live area."
+            },
+            {
+                title: "33. Binary Condition to Evaluate Power Charging Levels 🔋",
+                level: "Beginner",
+                code: `let battery = 15;\nif (battery <= 20) {\n  console.log("Low Battery");\n} else {\n  console.log("Battery OK");\n}`,
+                concept: "Using minor numerical comparisons (<=) to alert systems and users of the need to take urgent actions to save live state.",
+                realWorld: "Smart power saving systems in smartphones that work automatically when charging declines clearly.",
+                breakdown: ["Current battery charge is 15 which is smaller than 20 (the condition is completely correct).", "The first path was entered successfully and upgraded warning issued Low Battery."],
+                mental: "Smart programs monitor vital indicators constantly and intervene with conditions to protect users' devices from sudden shutdown.",
+                mistake: "Inverting the direction of smaller than or equal sign to become => which is a completely wrong symbol causing immediate check collapse.",
+                pro: "Always write smaller than or greater than sign before equal sign with precise engineering standard to ensure safe code reading and operation.",
+                challenge: "Raise battery charge to 80 and watch how phone system moves automatically to the stable reassuring state Battery OK."
+            },
+            {
+                title: "34. Classifying Shipping & Delivery Categories via else if 📦",
+                level: "Beginner",
+                code: `let distance = 45;\nif (distance <= 10) {\n  console.log("Free Delivery");\n} else if (distance <= 50) {\n  console.log("Standard Delivery");\n} else {\n  console.log("Express Delivery");\n}`,
+                concept: "Building flexible and advanced logistics equations to determine shipping costs and categories based on geographic distance in kilometers with extreme precision.",
+                realWorld: "Programming smart delivery apps and famous restaurants to calculate shipping fees automatically once client's location is set on map.",
+                breakdown: ["Distance 45 is not smaller than 10.", "But it is smaller than 50 (the second check is met), so shipping classified as Standard delivery and notification displayed."],
+                mental: "Ascending hierarchical sequence ensures precise sorting; the number passes through all conditional filters until it finds its suitable range.",
+                mistake: "Neglecting to write final else block which leaves far and huge distances without certified defined shipping category inside code.",
+                pro: "Always design delivery algorithms with high flexibility accommodating all geographic ranges for comfort of clients and subscribers.",
+                challenge: "Make distance jump to 90 kilometers and watch system's automatic transition to adopt fast advanced shipping category Express."
+            },
+            {
+                title: "35. Independent Conditions to Activate and Collect Store Rewards 🎁",
+                level: "Beginner",
+                code: `let totalItems = 6;\nif (totalItems >= 5) { console.log("Free Pen"); }\nif (totalItems >= 3) { console.log("Free Sticker"); }`,
+                concept: "Using individual and successive check statements to grant consumer multiple cumulative gifts and rewards based on current shopping cart size.",
+                realWorld: "Major stores' offers in occasions to increase sales volume and motivate buyers continuously and attractively.",
+                breakdown: ["Number of products in cart is 6.", "The first condition is correct so they get the free gift Pen.", "The second condition is also correct so they get the free gift Sticker together in same cycle."],
+                mental: "Independent ifs do not know exclusive stopping; they grant and reward client with all authorities they deserve in parallel without annoying overlap.",
+                mistake: "Converting these checks to else if structure by mistake, depriving client of sticker gift because code settles for first gift and exits.",
+                pro: "Study commercial offer nature well; cumulative accumulation offers always require completely independent conditions to ensure consumer satisfaction.",
+                challenge: "Reduce products to become 2 products only and observe disappearance of all gifts and rewards automatically from console."
+            },
+            {
+                title: "36. Logical AND Linker to Check Ticket Booking Balance and Validity 🎫",
+                level: "Beginner",
+                code: `let userBalance = 150;\nlet seatsAvailable = true;\nif (userBalance >= 100 && seatsAvailable) {\n  console.log("Ticket Booked");\n}`,
+                concept: "Applying joint firm checking with && operator to ensure success of electronic booking operations once balance and vacant seats are available together.",
+                realWorld: "Flight, football match, and luxury cinema booking systems online to prevent overcrowding and hidden financial errors.",
+                breakdown: ["User balance is sufficient 150 (true) and seats are available in hall (true).", "Both sides are solid and completely correct, ticket booking confirmed immediately Ticket Booked."],
+                mental: "&& linker ensures avoiding logistical vulnerabilities; a ticket cannot be booked for a person without money, nor for a person with money but hall is full.",
+                mistake: "Replacing linker with || by mistake, causing catastrophes of booking fake non-existent seats in reality and ruining company commercial systems.",
+                pro: "Always design digital booking gateways with absolute logical strictness using firm links to preserve assets of institution and clients.",
+                challenge: "Make seats available false (full) and watch how system refuses to complete booking process despite user's huge financial balance."
+            },
+            {
+                title: "37. Logical OR Linker to Provide Varied Alternative Payment Options 💳",
+                level: "Beginner",
+                code: `let paypalReady = false;\nlet instapayReady = true;\nif (paypalReady || instapayReady) {\n  console.log("Payment Accepted");\n}`,
+                concept: "Using the || operator to facilitate financial transactions and grant client multiple settlement choices ensuring successful purchase with complete flexibility.",
+                realWorld: "Programming electronic payment gateways on academy site and modern stores for immediate support of all digital wallets and local/foreign systems.",
+                breakdown: ["PayPal account is unactivated (false) but InstaPay wallet is active and working (true).", "The OR linker passes transaction immediately and approves payment Payment Accepted."],
+                mental: "Multiplicity of payment methods raises sales rates and prevents losing clients when a certain network or wallet breaks down thanks to smart live alternatives.",
+                mistake: "Wrong assumption of necessity to link and activate all wallets together in condition; || settles for one correct financial flash for approval.",
+                pro: "Always make payment interfaces welcoming to all methods and alternatives to raise shopper satisfaction level in your upgraded store.",
+                challenge: "Disable InstaPay wallet and make it false to see how gateway refuses to complete process and invoice stops completely in live editor."
+            },
+            {
+                title: "38. Reassignment Flexibility for Text Variables with let 🕵️‍♂️",
+                level: "Beginner",
+                code: `let currentStatus = "Idle";\ncurrentStatus = "Coding";\nconsole.log(currentStatus);`,
+                concept: "Confirming let's high capability in tracking and changing users' text states continuously to keep pace with their actual current activities on platform.",
+                realWorld: "Updating personal status in chat apps (online, busy, typing now, at work) automatically and dynamically.",
+                breakdown: ["User state started idle Idle in memory.", "Upon starting writing and work, text changed and box updated to Coding immediately.", "Final output is Coding."],
+                mental: "RAM erases old letters immediately and settles on modern words to ensure accurate visual communication between members and users.",
+                mistake: "Re-declaring the variable by writing let in the second line, which is a famous programming error disabling page operation completely.",
+                pro: "Maintaining text states updates smartly gives your apps a live interactive character attracting and pleasing all users and developers.",
+                challenge: "Add a third update line and make final state 'Mastering JS' to confirm your excellence and passion in interactive code arena."
+            },
+            {
+                title: "39. Binary Condition to Check Sensitive Temperature Levels 🌡️",
+                level: "Beginner",
+                code: `let roomTemp = 32;\nif (roomTemp > 30) {\n  console.log("Turn On AC");\n} else {\n  console.log("Turn Off AC");\n}`,
+                concept: "Using direct conditional comparisons to control smart mechanical devices and systems based on actual readings of environmental sensors.",
+                realWorld: "Programming smart air conditioners and advanced home systems (Smart Homes) to maintain stability and comfort of individuals automatically.",
+                breakdown: ["Current room temperature is 32 which is greater than 30 (the condition is completely correct).", "AC is turned on immediately and atmosphere cooled Turn On AC."],
+                mental: "Smart systems translate abstract numbers into actual motor and operational commands improving quality and facilitating details of human daily life.",
+                mistake: "Writing commands outside curly braces dedicated to condition block {} which confuses programming interpreter and breaks automatic work logic completely.",
+                pro: "Always bind your codes to real life readings to make beneficial software with high application value and excellent engineering efficiency.",
+                challenge: "Lower room temperature to 22 degrees and watch how system moves automatically to turn off AC and save power in live editor."
+            },
+            {
+                title: "40. End of Journey & Confirming Comprehensive Understanding via else if 🤖",
+                level: "Beginner",
+                code: `let finalCheck = "Perfect";\nif (finalCheck === "Weak") {\n  console.log("Review Lessons");\n} else if (finalCheck === "Perfect") {\n  console.log("Ready For Quiz");\n} else {\n  console.log("Keep Practicing");\n}`,
+                concept: "Using advanced matching and filtering chains via else if to ensure full readiness of students to move to comprehensive quizzes and certificates.",
+                realWorld: "Final and automatic evaluation of academic and programming performance of students at academy to ensure absolute excellence and leadership.",
+                breakdown: ["Student final state is not weak Weak.", "But it is excellent and perfectly matching Perfect in second condition, so immediate qualification outputs Ready For Quiz."],
+                mental: "You now possess a complete logical weapon; variables, conditions, and linkers are core building blocks for building largest global apps.",
+                mistake: "Haste and lack of reviewing precise matching conditions; remember always that JavaScript is a case-sensitive language for all text letters.",
+                pro: "Warm congratulations from Mr. Robot Academy! You have completed 40 innovative interactive explanation points, and you are fully ready for quiz arena now.",
+                challenge: "Run this last lesson and read your honorable message in console, then get ready to write your name and launch towards quiz 🚀"
+            }
+        ];
+
+        // --- Second: Full Interactive Questions Array (50 unique and upgraded questions) ---
+        const quizData = [
+            {
+                q: "What is the primary function of variables in the upgraded JavaScript language?",
+                opts: ["Storing data and information in memory to refer back to them later", "Changing colors and designs of web page directly and continuously", "Deleting old programming codes automatically to save spaces", "Printing fixed welcoming messages to audience without using memory"],
+                ans: 0,
+                hint: "Variables work as containers or smart boxes to preserve values and live program states."
+            },
+            {
+                q: "Which of the following reserved words is used to declare a variable that is reassignable and updatable?",
+                opts: ["if", "let", "else", "and"],
+                ans: 1,
+                hint: "The word let grants you the capability to create flexible variable boxes in RAM."
+            },
+            {
+                q: "What is the final output of printing the following code?\nlet x = 10;\nx = 20;\nconsole.log(x);",
+                opts: ["10", "20", "30", "undefined"],
+                ans: 1,
+                hint: "Reassignment erases the old value and establishes the newest value stored in box immediately."
+            },
+            {
+                q: "What is the programming error in writing the following lines?\nlet name = \"Andrew\";\nlet name = \"Robot\";",
+                opts: ["Repeating let word for same variable in same scope causes a SyntaxError", "Text cannot be stored inside let variables at all", "Single quotation marks must be used exclusively with let", "Variable name is too short and must exceed five characters"],
+                ans: 0,
+                hint: "We declare variable with let once only, and upon updating we write name directly without let."
+            },
+            {
+                q: "When is the code written inside else block executed in simple condition?",
+                opts: ["When the condition written inside if parentheses is correct (true)", "When the condition written inside if parentheses is wrong (false)", "When program stops working due to external error on page", "When repeating writing variables more than three consecutive times in code"],
+                ans: 1,
+                hint: "else is the alternative inevitable path working only when main condition fails completely."
+            },
+            {
+                q: "What does triple equal sign (===) mean in interactive JavaScript conditions?",
+                opts: ["Assigning a new value to variable and erasing old one immediately", "Strict comparison in value and data type together", "Multiplying current value by three automatically in processor", "Converting text into boolean number quickly inside condition"],
+                ans: 1,
+                hint: "Strict matching ensures no tolerance between different types like numbers and formal texts."
+            },
+            {
+                q: "What is the final output of running the following code?\nlet speed = 90;\nif (speed > 100) {\n  console.log(\"Fast\");\n} else {\n  console.log(\"Safe\");\n}",
+                opts: ["Fast", "Safe", "FastSafe", "Does not print anything"],
+                ans: 1,
+                hint: "Number 90 is not greater than 100, so code ignores first path and executes else path immediately."
+            },
+            {
+                q: "When we want to check another new independent condition immediately upon failure of first condition, what do we use?",
+                opts: ["else if", "if only", "let update", "not else"],
+                ans: 0,
+                hint: "The phrase else if opens a new checking path linked smartly to hierarchical chain of conditions."
+            },
+            {
+                q: "What is the final output of printing the following code?\nlet points = 25;\nif (points > 30) {\n  console.log(\"A\");\n} else if (points > 20) {\n  console.log(\"B\");\n} else {\n  console.log(\"C\");\n}",
+                opts: ["A", "B", "C", "B and C together"],
+                ans: 1,
+                hint: "25 failed in first condition and succeeded in second, so B is printed and exited immediately from chain."
+            },
+            {
+                q: "If we write multiple independent if statements below each other without else, how does computer behave?",
+                opts: ["Checks first condition only and ignores rest completely to save power", "Checks all conditions and executes each one whose condition is met separately and cumulatively", "Disables page immediately due to presence of repetition in opening words", "Executes last condition always regardless of correctness of previous conditions"],
+                ans: 1,
+                hint: "Independent ifs are considered separate battles, allowing accumulation of cumulative features and rewards."
+            },
+            {
+                q: "What is the standard approved programming symbol to represent logical AND linker in JavaScript?",
+                opts: ["&&", "||", "!!", "and"],
+                ans: 0,
+                hint: "The symbol && binds conditions with absolute strictness requiring success of all together without exception."
+            },
+            {
+                q: "When does logical AND linker (&&) give an overall correct result (true)?",
+                opts: ["If one condition only is met among all available conditions", "If all bound conditions are completely correct and together", "If all conditions are wrong and completely negated in code", "When starting variables with zero and updating them continuously with let"],
+                ans: 1,
+                hint: "&& operator hates error, demolishing phrase entirely if one side appears false."
+            },
+            {
+                q: "What is the standard approved programming symbol to represent logical OR linker in developers language?",
+                opts: ["&&", "||", "??", "or"],
+                ans: 1,
+                hint: "The symbol || is typed by pressing Shift + \\ and represents choices and flexible alternatives in code."
+            },
+            {
+                q: "When is logical OR linker (||) satisfied to pass an overall correct result (true)?",
+                opts: ["Requires success and fulfillment of all conditions together without any error", "Settles for fulfillment and success of one correct condition only among all choices", "When all conditional paths end with an inevitable else block", "If variables are declared and updated with old reserved words"],
+                ans: 1,
+                hint: "|| operator is flexible and kind; a single correct flash is enough to pass path safely and successfully."
+            },
+            {
+                q: "What is the final output of running the following code?\nlet ticket = true;\nlet mask = false;\nif (ticket && mask) {\n  console.log(\"Enter\");\n} else {\n  console.log(\"Block\");\n}",
+                opts: ["Enter", "Block", "EnterBlock", "Does not print anything"],
+                ans: 1,
+                hint: "Since link is && and there is a false side (mask is missing), gate collapses and we go to else."
+            },
+            {
+                q: "What is the final output of running the following code?\nlet cash = false;\nlet card = true;\nif (cash || card) {\n  console.log(\"Buy\");\n} else {\n  console.log(\"Stop\");\n}",
+                opts: ["Buy", "Stop", "BuyStop", "undefined"],
+                ans: 0,
+                hint: "The || link is alternative choice; card is available and holds true value, so purchase completes successfully."
+            },
+            {
+                q: "What does exclamation mark (!) do when placed before boolean variables?",
+                opts: ["Multiplies numerical value of variable ten times immediately", "Represents negation operator (NOT) and completely reverses boolean state", "Turns variable into a magical comment ignored by computer automatically", "Merges texts with real numbers without using plus sign"],
+                ans: 1,
+                hint: "Negation operator flips true to false and false to true in the blink of an eye."
+            },
+            {
+                q: "What is the final output of the following code?\nlet isClosed = false;\nif (!isClosed) {\n  console.log(\"Open\");\n}",
+                opts: ["Open", "Closed", "false", "Disastrous programming error"],
+                ans: 0,
+                hint: "Negation reversed false so it became overall true, we entered box and printed successfully Open."
+            },
+            {
+                q: "What is the final output of printing the following arithmetic update lines?\nlet wallet = 100;\nwallet = wallet + 50;\nwallet = wallet - 20;\nconsole.log(wallet);",
+                opts: ["100", "150", "130", "120"],
+                ans: 2,
+                hint: "Track operations in order: 100 increased by fifty became 150, then we deducted twenty so settled on 130."
+            },
+            {
+                q: "Which of the following choices represents standard and correct variable names in JavaScript?",
+                opts: ["let studentName = \"Ali\";", "let student Name = \"Ali\";", "let let = \"Ali\";", "let 1student = \"Ali\";"],
+                ans: 0,
+                hint: "Variable names must be connected, without spaces, and do not start with numbers or reserved words."
+            },
+            {
+                q: "What is the final output of the following code?\nlet num = 15;\nif (num > 10) {\n  if (num < 20) { console.log(\"Win\"); }\n}",
+                opts: ["Win", "Lose", "15", "Does not print anything"],
+                ans: 0,
+                hint: "This is a deep nested condition (Nested if), and since 15 succeeded in both checks we printed victory Win."
+            },
+            {
+                q: "What is the fatal mistake in writing the following condition?\nif (score = 100) { console.log(\"Perfect\"); }",
+                opts: ["Using single equal sign (=) which is for assignment and not for comparison and checking", "Forgetting to place let word inside conditional circular parentheses to protect it", "Word score must be written between huge double quotation marks", "Curly braces must be replaced by solid square brackets immediately"],
+                ans: 0,
+                hint: "Checking requires comparison signs like === or ==, while single = sign is for filling boxes only."
+            },
+            {
+                q: "What is the final output of running the following lines?\nlet status = \"\";\nif (status) {\n  console.log(\"Yes\");\n} else {\n  console.log(\"No\");\n}",
+                opts: ["Yes", "No", "Empty", "undefined"],
+                ans: 1,
+                hint: "Completely empty strings are treated programmatically as a Falsy value and go immediately to else path."
+            },
+            {
+                q: "What is the final output of printing the following code?\nlet a = 5;\nlet b = 10;\nif (a > 2 && b > 20) {\n  console.log(\"True Area\");\n} else {\n  console.log(\"False Area\");\n}",
+                opts: ["True Area", "False Area", "a > 2", "SyntaxError"],
+                ans: 1,
+                hint: "&& linker is strict; although first side succeeded, b failed to exceed 20 so else won."
+            },
+            {
+                q: "What is the final output of printing the following upgraded code?\nlet x = 5;\nlet y = 10;\nif (x > 2 || y > 20) {\n  console.log(\"Passed\");\n} else {\n  console.log(\"Failed\");\n}",
+                opts: ["Passed", "Failed", "5", "10"],
+                ans: 0,
+                hint: "|| linker is flexible choice, and since first side succeeded (5 > 2) it settles for that and prints success Passed."
+            },
+            {
+                q: "What happens if we define a variable with let without giving it any initial value like: let salary;?",
+                opts: ["Program collapses and browser stops displaying completely", "Variable reserved in memory and its current default value is undefined", "Variable filled automatically with zero to save space in processor", "Word let turns into a magical hidden and dead comment arithmetically"],
+                ans: 1,
+                hint: "Variable declared without value assignment waits for filling and holds an undefined state temporarily."
+            },
+            {
+                q: "What is the final output of the following code?\nlet level = 5;\nif (level > 2) { console.log(\"Alpha\"); }\nif (level > 4) { console.log(\"Beta\"); }",
+                opts: ["Alpha", "Beta", "Alpha and Beta together in two lines", "Does not print anything"],
+                ans: 2,
+                hint: "These are independent checks with successive ifs; since number 5 exceeded 2 and 4 we printed both words in parallel."
+            },
+            {
+                q: "How do we write the following condition geometrically correctly: if age is NOT 18?",
+                opts: ["if (age !== 18)", "if (age not 18)", "if (age =! 18)", "if age != 18"],
+                ans: 0,
+                hint: "The symbol !== expresses strict and complete non-matching in live JavaScript language."
+            },
+            {
+                q: "What is the final output of running the following update lines?\nlet counter = 0;\ncounter = counter + 5;\ncounter = 10;\nconsole.log(counter);",
+                opts: ["0", "5", "10", "15"],
+                ans: 2,
+                hint: "The third line erased and canceled all previous calculations and assigned value 10 decisively and explicitly."
+            },
+            {
+                q: "What is the correct way to increment a numerical variable value by 1 in a brief manner?",
+                opts: ["counter++", "counter+1", "let counter+1", "counter====1"],
+                ans: 0,
+                hint: "The operator ++ is the smart standard approved اختصار to increment counters by one step in codes."
+            },
+            {
+                q: "What is the final output of running the following code?\nlet isAdmin = false;\nif (isAdmin === false) {\n  console.log(\"Guest\");\n}",
+                opts: ["Guest", "false", "Does not print anything", "Structure error"],
+                ans: 0,
+                hint: "Check asks does value equal false? Since it is indeed false, condition is correct and printing completes successfully."
+            },
+            {
+                q: "If we have the following hierarchical evaluation, which path will be chosen?\nlet mark = 50;\nif (mark >= 50) { console.log(\"Accept\"); }\nelse if (mark >= 50) { console.log(\"Excel\"); }",
+                opts: ["Accept", "Excel", "Accept and Excel together", "Does not print anything"],
+                ans: 0,
+                hint: "Once linked chain finds first correct condition, it executes it, ignores rest completely, and exits immediately."
+            },
+            {
+                q: "Which of the following describes JavaScript behavior towards case sensitivity in variable names?",
+                opts: ["Highly sensitive language considering let myVar completely different from let myvar", "Flexible language merging similar names in characters automatically in memory", "Converts all uppercase letters to lowercase once file runs in browser", "Prevents using uppercase letters completely in naming let variables"],
+                ans: 0,
+                hint: "Case Sensitivity is an essential and strict standard in developers languages to prevent overlap and confusion."
+            },
+            {
+                q: "What is the final output of printing the following text merging?\nlet label = \"Score: \";\nlet val = 100;\nconsole.log(label + val);",
+                opts: ["Score: 100", "Score:  + 100", "100", "Dead arithmetic error"],
+                ans: 0,
+                hint: "The plus sign (+) when merged with a text side works as programming glue pasting values smartly."
+            },
+            {
+                q: "What is the operator that checks conditional matching without auditing data type (loose comparison)?",
+                opts: ["==", "===", "!=", "&&"],
+                ans: 0,
+                hint: "The binary sign == compares shapes and values and overlooks differences between texts and abstract numbers."
+            },
+            {
+                q: "What is the final output of running the following code?\nlet active = true;\nlet verified = true;\nif (!active || !verified) {\n  console.log(\"Red\");\n} else {\n  console.log(\"Green\");\n}",
+                opts: ["Red", "Green", "true", "false"],
+                ans: 1,
+                hint: "Negation turned both sides to false || false so OR condition failed entirely, code shifted immediately to green else block."
+            },
+            {
+                q: "Which of the following describes the core goal of using enhanced let structure?",
+                opts: ["Its value can be reassigned but it cannot be re-declared in same scope", "Its value can never be changed after first line of declaration and filling", "Disappears and deleted from RAM automatically once used once", "Used only to save arithmetic operations, multiplication, and decimal fractions"],
+                ans: 0,
+                hint: "Flexibility in updating and safety in preventing repetition are secrets of let variable boxes power."
+            },
+            {
+                q: "What is the final output of printing the following successive conditional lines?\nlet v = 8;\nif (v > 5) { console.log(\"Hi\"); }\nif (v > 10) { console.log(\"Bye\"); }",
+                opts: ["Hi", "Bye", "Hi and Bye together", "Does not print anything"],
+                ans: 0,
+                hint: "First condition is correct so prints Hi, while second condition is wrong (8 is not greater than 10) so ignores it safely."
+            },
+            {
+                q: "What is the literal and logical meaning of conditional phrase written as: if (x && y)?",
+                opts: ["Execute commands if variable x is correct or variable y is correct and alternative", "Execute commands only when both variables x and y are correct together and at same time", "Sum value of both variables and store result in RAM immediately", "Negate correctness of both variables and turn them to empty and dead boolean symbols"],
+                ans: 1,
+                hint: "The shared operator && requires combination and solidarity of all live sides to pass path successfully."
+            },
+            {
+                q: "What is the literal and logical meaning of conditional phrase written as: if (a || b)?",
+                opts: ["Execute commands if variable a is correct or variable b is correct or both", "Require fall and failure of both variables together to pass code safely", "Multiply value of a by b to calculate common multiples inside condition", "Ignore variables checking and turn them to custom comments dedicated for developers"],
+                ans: 0,
+                hint: "The choice operator || opens alternative safety paths, settling for success of one side as a minimum."
+            },
+            {
+                q: "What is the final output of running the following checking chain?\nlet total = 10;\nif (total < 5) { console.log(\"Small\"); }\nelse { console.log(\"Large\"); }",
+                opts: ["Small", "Large", "10", "Logical error"],
+                ans: 1,
+                hint: "Since number 10 is not smaller than 5, main condition fails entirely and we move to certified else block."
+            },
+            {
+                q: "Which of the following symbols represents decrement operator by one step in interactive counters?",
+                opts: ["--", "++", "-1", "==-"],
+                ans: 0,
+                hint: "The successive operator -- subtracts number 1 from current value stored in memory smartly and briefly."
+            },
+            {
+                q: "What is the final output of printing the following nested mathematical code?\nlet price = 50;\nif (price === 50) {\n  price = price + 10;\n}\nconsole.log(price);",
+                opts: ["50", "60", "10", "undefined"],
+                ans: 1,
+                hint: "Matching succeeded so we entered to update and modify box by adding 10 degrees, balance settled on 60."
+            },
+            {
+                q: "What is the automatic behavior of computer when encountering a programming comment starting with // inside checking code?",
+                opts: ["Analyzes and translates it to welcoming messages appearing to audience on interface", "Ignores it completely and does not read it, used only to explain and understand code for developers", "Considers it a fatal programming error and stops operating electronic page immediately", "Reserves huge extra spaces in RAM to save characters"],
+                ans: 1,
+                hint: "Comments are sticky notes dedicated for comfort of developers, not affecting speed or live execution logic."
+            },
+            {
+                q: "What is the final output of running the following joint logical check?\nlet check = (20 > 10) && (5 < 3);\nconsole.log(check);",
+                opts: ["true", "false", "20", "Error in condition"],
+                ans: 1,
+                hint: "First side is correct (true) but second side is wrong (false), and due to presence of && overall result is false."
+            },
+            {
+                q: "What is the final output of running the following joint choice check?\nlet exam = (20 > 10) || (5 < 3);\nconsole.log(exam);",
+                opts: ["true", "false", "20", "5"],
+                ans: 0,
+                hint: "First side is correct (true), and since link is flexible ||, overall result becomes true directly without hesitation."
+            },
+            {
+                q: "How do we write the following condition programmatically: if variable x is greater than 5 and less than 10 together?",
+                opts: ["if (x > 5 && x < 10)", "if (x > 5 or x < 10)", "if (5 < x < 10)", "if (x > 5 || x < 10)"],
+                ans: 0,
+                hint: "We bind between two independent checks for same variable using strict link operator && to lock range."
+            },
+            {
+                q: "What is the final output of printing the following upgraded code?\nlet mode = \"Dark\";\nlet res = \"Theme: \" + mode;\nconsole.log(res);",
+                opts: ["Theme: Dark", "Theme:  + Dark", "Dark", "Theme:"],
+                ans: 0,
+                hint: "Fixed string chain merged with variable content of text box to produce a unified attractive phrase on interface."
+            },
+            {
+                q: "Which of the following is considered the primary goal of using successive and linked else if structure in code?",
+                opts: ["Providing alternative organized checking paths preventing decisions overlap and settling for one true exclusive path", "Repeating execution of commands a hundred consecutive times without consuming extra spaces in RAM", "Converting strict numerical variables into negated automatic values in processor", "Hiding and masking sensitive codes from eyes of intruders and hackers on web sites"],
+                ans: 0,
+                hint: "Linked chains organize programming flow and ensure settling decisions and choosing most suitable option exclusively."
+            },
+            {
+                q: "Warm congratulations! What is the primary slogan and programming feeling for Mr. Robot Academy students?",
+                opts: ["Deep understanding, continuous passion, and building programming future smartly with absolute professionalism 🤖", "Formal memorization of codes without understanding details of processing and live conditional logic", "Fear and hesitation when facing hidden programming errors on control panels", "Leaving training and relying on ready solutions without actual practice and development"],
+                ans: 0,
+                hint: "Eng. Andrew Magdy welcomes you always in journey of excellence and global leadership for interesting smart programming world."
+            }
+        ];
+
+        // --- Third: Page Structure & Running Entire Interface As Is without modification ---
+        let currentLessonIndex = 0;
+        let currentQuizIndex = 0;
+        let studentAnswers = new Array(quizData.length).fill(null);
+        let studentName = "";
+        let quizTimer = null;
+        let timeLeft = 3600; // 60 full minutes for quiz
+
+        function loadLesson(index) {
+            const lesson = lessonsData[index];
+            document.getElementById('lesson-progress').innerText = `Lesson ${index + 1} of ${lessonsData.length}`;
+            
+            let html = `
+                <h3>${lesson.title}</h3>
+                <span class="badge" style="background-color: #2ea44f; color: #fff;">Level: ${lesson.level}</span>
+                
+                <p style="margin-top:15px;"><b>💡 Core Programming Concept:</b> ${lesson.concept}</p>
+                <div class="info-block"><b>🌍 Real-World Example:</b> ${lesson.realWorld}</div>
+                
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <span>💻 Mr. Robot Interactive Code Playground</span>
+                        <button class="btn btn-check" style="padding:4px 10px; font-size:0.8rem; margin:0;" onclick="runLessonCode(${index})">Run & Check Code ⚡</button>
+                    </div>
+                    <textarea id="code-editor-${index}" class="code-editor">${lesson.code}</textarea>
+                    <div class="console-output">
+                        <div class="console-title">🖥️ Browser Console Output:</div>
+                        <div id="console-output-${index}">Click Run to see live output...</div>
+                    </div>
+                </div>
+
+                <h4>📝 Step-by-Step Code Line Analysis:</h4>
+                <ul class="breakdown-list">
+                    ${lesson.breakdown.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+
+                <div class="info-block challenge"><b>🤖 Eng. Andrew's Challenge:</b> ${lesson.challenge}</div>
+                <div class="info-block mistake"><b>⚠️ Common Mistake to Avoid:</b> ${lesson.mistake}</div>
+                <p style="color: var(--accent-color);"><b>🎯 Pro-Tip:</b> ${lesson.pro}</p>
+            `;
+            
+            document.getElementById('lesson-content-area').innerHTML = html;
+            document.getElementById('prev-lesson-btn').disabled = (index === 0);
+            document.getElementById('next-lesson-btn').disabled = (index === lessonsData.length - 1);
+        }
+
+        function runLessonCode(index) {
+            const editor = document.getElementById(`code-editor-${index}`);
+            const outputDiv = document.getElementById(`console-output-${index}`);
+            const userCode = editor.value;
+            
+            let logs = [];
+            const customConsole = {
+                log: function(msg) {
+                    logs.push(msg);
+                }
+            };
+
+            try {
+                const runFn = new Function('console', userCode);
+                runFn(customConsole);
+                if (logs.length === 0) {
+                    outputDiv.innerHTML = "<span style='color:var(--warning-color);'>Code executed successfully but there is no output to print. Add console.log() to see the result!</span>";
+                } else {
+                    outputDiv.innerHTML = logs.map(l => {
+                        if (typeof l === 'object') return JSON.stringify(l);
+                        return l;
+                    }).join('\n');
+                }
+                outputDiv.style.color = "#58a6ff";
+            } catch (err) {
+                outputDiv.innerHTML = "❌ Error in your programming code:\n" + err.message;
+                outputDiv.style.color = "var(--danger-color)";
+            }
+        }
+
+        function navigateLesson(direction) {
+            currentLessonIndex += direction;
+            if (currentLessonIndex >= 0 && currentLessonIndex < lessonsData.length) {
+                loadLesson(currentLessonIndex);
+            }
+        }
+
+        function startQuiz() {
+            const nameInput = document.getElementById('student-name-input').value.trim();
+            if (nameInput === "") {
+                alert("Please enter your full name to start the quiz and extract report successfully! 🚀");
+                return;
+            }
+            studentName = nameInput;
+            document.getElementById('quiz-setup').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('timer-box').style.display = 'block';
+            
+            startTimer();
+            loadQuizQuestion(currentQuizIndex);
+        }
+
+        function startTimer() {
+            quizTimer = setInterval(function() {
+                timeLeft--;
+                let mins = Math.floor(timeLeft / 60);
+                let secs = timeLeft % 60;
+                document.getElementById('timer-display').innerText = 
+                    (mins < 10 ? "0" + mins : mins) + ":" + (secs < 10 ? "0" + secs : secs);
+                
+                if (timeLeft <= 0) {
+                    clearInterval(quizTimer);
+                    alert("Quiz time has ended! Your current answers will be gathered and submitted immediately for evaluation.");
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function loadQuizQuestion(index) {
+            const qData = quizData[index];
+            document.getElementById('quiz-progress').innerText = `Question ${index + 1} of ${quizData.length}`;
+            document.getElementById('question-title').innerText = `Current Question No (${index + 1}):`;
+            
+            let html = `
+                <div style="font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; white-space: pre-wrap; line-height:1.6; color:#ffd700;">${qData.q}</div>
+                
+                <div class="interactive-tab">
+                    <div class="interactive-tab-header" onclick="this.parentElement.classList.toggle('active')">💡 Click here to show Eng. Andrew's helpful hint for solving</div>
+                    <div class="interactive-tab-content">${qData.hint}</div>
+                </div>
+
+                <ul class="options-list">
+                    ${qData.opts.map((opt, oIdx) => `
+                        <li class="option-item" id="opt-item-${oIdx}" onclick="selectOption(${oIdx})">
+                            <input type="radio" name="quiz-opt" id="opt-${oIdx}" value="${oIdx}" ${studentAnswers[index] === oIdx ? 'checked' : ''}>
+                            <label for="opt-${oIdx}" style="cursor:pointer; width:100%; display:block;">${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            
+            document.getElementById('dynamic-quiz-area').innerHTML = html;
+            document.getElementById('feedback-area').innerHTML = "";
+            
+            document.getElementById('prev-quiz-btn').disabled = (index === 0);
+            document.getElementById('next-quiz-btn').disabled = (index === quizData.length - 1);
+        }
+
+        function selectOption(optIdx) {
+            document.getElementById(`opt-${optIdx}`).checked = true;
+            studentAnswers[currentQuizIndex] = optIdx;
+        }
+
+        function checkCurrentAnswer() {
+            const selected = studentAnswers[currentQuizIndex];
+            if (selected === null) {
+                document.getElementById('feedback-area').innerHTML = `<p class="feedback-msg" style="color: var(--warning-color);">⚠️ Please select an answer first to check it!</p>`;
+                return;
+            }
+            
+            const correctAns = quizData[currentQuizIndex].ans;
+            
+            for(let i=0; i<quizData[currentQuizIndex].opts.length; i++) {
+                const item = document.getElementById(`opt-item-${i}`);
+                if(item) {
+                    item.classList.remove('correct', 'wrong');
+                    if(i === correctAns) item.classList.add('correct');
+                    else if(i === selected) item.classList.add('wrong');
+                }
+            }
+
+            if (selected === correctAns) {
+                document.getElementById('feedback-area').innerHTML = `<p class="feedback-msg" style="color: var(--success-color);">🎉 Excellent and correct answer, genius of upgraded Mr. Robot! Keep moving forward.</p>`;
+            } else {
+                document.getElementById('feedback-area').innerHTML = `<p class="feedback-msg" style="color: var(--danger-color);">❌ Inaccurate answer. Review the helpful hint above and try again with confidence!</p>`;
+            }
+        }
+
+        function navigateQuiz(direction) {
+            currentQuizIndex += direction;
+            if (currentQuizIndex >= 0 && currentQuizIndex < quizData.length) {
+                loadQuizQuestion(currentQuizIndex);
+            }
+        }
+
+        function submitQuiz() {
+            let unanswered = 0;
+            studentAnswers.forEach(ans => { if(ans === null) unanswered++; });
+            
+            if (unanswered > 0) {
+                if(!confirm(`Attention! You have ${unanswered} unanswered questions left in the comprehensive quiz. Do you want to continue and finish the entire quiz anyway?`)) {
+                    return;
+                }
+            }
+            
+            clearInterval(quizTimer);
+            document.getElementById('timer-box').style.display = 'none';
+            
+            let finalScore = 0;
+            let totalQuestions = quizData.length;
+            
+            quizData.forEach((quiz, index) => {
+                if (studentAnswers[index] === quiz.ans) {
+                    finalScore++;
+                }
+            });
+            
+            let percentage = Math.round((finalScore / totalQuestions) * 100);
+            
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+            document.getElementById('score-summary').innerHTML = `You answered correctly on <b>${finalScore}</b> out of <b>${totalQuestions}</b> questions with a success rate of <b>${percentage}%</b>.`;
+            
+            document.getElementById('cert-name').innerText = studentName;
+            document.getElementById('cert-score').innerText = `With an Excellence Score of: ${percentage}%`;
+        }
+
+        function shareToWhatsApp() {
+            const targetPhone = "201555772562";
+            const currentScore = document.getElementById('cert-score').innerText.split(': ')[1];
+            const message = `Hello Eng. / Andrew, I am the student: ${studentName}.\nThis is a report on my required assignments and I have passed them with an excellence rate of ${currentScore}! 🎉🤖`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        window.onload = function() {
+            loadLesson(currentLessonIndex);
+        };
+    </script>
+</body>
+</html>
